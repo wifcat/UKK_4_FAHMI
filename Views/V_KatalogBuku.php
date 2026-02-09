@@ -8,7 +8,9 @@
     </div>
 
     <div class="row g-4">
-        <?php foreach ($bukus as $data){ ?>
+        <?php 
+            if(!empty($bukus)){
+                foreach ($bukus as $data){ ?>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 shadow-sm border-0 rounded-4 card-book-hover transition-all">
                     
@@ -40,7 +42,9 @@
                     </div>
                 </div>
             </div>
-        <?php } ?>
+        <?php }}else{
+            echo '<p class="text-center text-muted">Buku sedang kosong!</p>';
+        } ?>
     </div>
 
 <?php include_once 'FOOTER.php'; ?>

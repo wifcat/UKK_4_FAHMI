@@ -64,9 +64,8 @@ class M_User{
         $conn = new M_Connect();
         // masukin data ke tabel users:
         $sql = "DELETE FROM users WHERE id = $id";
-        $post = mysqli_query($conn->connect, $sql);
         
-        mysqli_query($conn->connect, $post);
+        mysqli_query($conn->connect, $sql);
         header("location:../Views/V_User.php");
     }
 }

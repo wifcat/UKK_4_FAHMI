@@ -115,7 +115,7 @@
     </style>
 </head>
 <body>
-	<div class="bg-white p-4 rounded-4 shadow-sm h-70">
+
 	    <div class="login-box text-center">
 	        <div class="brand-icon">
 	            <i class="fas fa-leaf"></i>
@@ -142,11 +142,11 @@
 				<hr>
 	            
 	            <div class="mt-3 text-center">
-	                <a href="#" class="text-decoration-none small" style="color: #bbb;">Belum punya akun?</a>
+	                <a href="V_Regis.php" class="text-decoration-none small" style="color: #bbb;">Belum punya akun?</a>
 	            </div>
 	        </form>
 	    </div>
-    </div>
+
     <script src="../assets/src/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

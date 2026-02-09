@@ -22,8 +22,9 @@
                 </thead>
                 <tbody>
                     <?php 
-                        $no = 1;
-                        foreach($users as $data){
+                    if(!empty($users)){
+                            $no = 1;
+                            foreach($users as $data){
                     ?>
                     <tr>
                         <td class="ps-3 text-muted"><?= $no++ ?></td>
@@ -40,16 +41,16 @@
                                 <a href="V_UpdateUser.php?aksi=update&id=<?=$data->id ?>" class="btn btn-sm btn-light border text-primary" title="Update">
                                  	<i class="fas fa-edit"></i>
                                  </a>
-                                <a href="../Controllers/C_User.php?aksi=hapus&id=<?= $data->id ?>" 
-                                   class="btn btn-sm btn-light border text-danger" 
-                                   onclick="return confirm('Hapus buku <?= $data->username ?>')" 
-                                   title="Delete">
+                                <a href="../Controllers/C_User.php?aksi=hapus&id=<?= $data->id ?>" class="btn btn-sm btn-light border text-danger" onclick="return confirm('Hapus user <?= $data->username ?>?')" title="Delete">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    <?php } ?>
+                    <?php }}else{
+                        echo '<p class="text-center text-muted">Data tidak tersedia</p>'; 
+                    }    
+                    ?>
                 </tbody>
             </table>
         </div>

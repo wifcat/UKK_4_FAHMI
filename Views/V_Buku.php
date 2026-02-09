@@ -38,8 +38,9 @@
                 </thead>
                 <tbody>
                     <?php 
-                        $no = 1;
-                        foreach($bukus as $data){
+                        if(!empty($bukus)){
+                            $no = 1;
+                            foreach($bukus as $data){
                     ?>
                         <tr>
                             <td class="ps-3 text-muted">
@@ -67,7 +68,10 @@
                                 </div>
                             </td>
                         </tr>
-                    <?php } ?>
+                    <?php }}else{ 
+                        echo '<p class="text-center text-muted">Data tidak tersedia</p>';
+                    }?>
+                    
                 </tbody>
             </table>
         </div>
