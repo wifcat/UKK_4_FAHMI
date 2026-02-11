@@ -1,6 +1,7 @@
 <?php
 
-class M_Connect{
+class M_Connect
+{
 	private $host = "localhost",
 	$username = "root",
 	$pass = "",
@@ -8,10 +9,12 @@ class M_Connect{
   
 	public $connect;
 
-	function __construct(){
+	function __construct()
+	{
 		$this->connect = mysqli_connect($this->host, $this->username, $this->pass, $this->db);
 
-		if ($this->connect){
+		if ($this->connect)
+		{
 			return $this->connect;
 		}else{
 			echo mysqli_connect_error();
