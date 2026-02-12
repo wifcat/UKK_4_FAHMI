@@ -1,6 +1,10 @@
 <?php
 	include_once '../Controllers/C_Buku.php'; 
+    include_once '../Controllers/C_User.php';
     include_once 'HEADER.php';
+    if(!isset($_SESSION['login'])){
+        header("Location: login.php");
+    }
 ?>
 
 <div class="row mb-4">
@@ -26,7 +30,7 @@
                 </div>
                 <div>
                 	<h6 class="text-muted mb-0 small uppercase fw-bold">Total Buku</h6>
-                    <h3 class="fw-bold mb-0">Total</h3> 
+                    <h3 class="fw-bold mb-0"><?= $totalBuku->total ?></h3> 
 				</div>
             </div>
         </div>
@@ -40,7 +44,7 @@
                 </div>
                 <div>
                     <h6 class="text-muted mb-0 small uppercase fw-bold">Anggota Aktif</h6>
-                    <h3 class="fw-bold mb-0">Total</h3>
+                    <h3 class="fw-bold mb-0"><?= $totalUser->total ?></h3>
                 </div>
             </div>
         </div>

@@ -12,11 +12,11 @@ CREATE TABLE buku (
 );
 CREATE TABLE transaksi (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_user INT NOT NULL,
-    id_buku INT NOT NULL,
+    id INT NOT NULL,
+    id INT NOT NULL,
     tgl_pinjam DATE NOT NULL,
     tgl_kembali DATE DEFAULT NULL,
     status ENUM('dipinjam', 'kembali') DEFAULT 'dipinjam',
-    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_buku) REFERENCES buku(id) ON DELETE CASCADE
+    FOREIGN KEY (id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (id) REFERENCES buku(id) ON DELETE CASCADE
 );

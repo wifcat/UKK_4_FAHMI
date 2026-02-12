@@ -32,7 +32,7 @@ class M_Buku{
         }
     }
 
-    public function ADD_BUKU($id_buku, $judul, $kategori, $stok)
+    public function ADD_BUKU($id, $judul, $kategori, $stok)
     {
 	    // buat objek dari class M_Connect:
 	    $conn = new M_Connect();
@@ -56,10 +56,10 @@ class M_Buku{
 	    }
 	}
 
-	public function UPDATE_BUKU($id_buku, $judul, $kategori, $stok)
+	public function UPDATE_BUKU($id, $judul, $kategori, $stok)
     {
         $conn = new M_Connect();
-        $sql = "UPDATE buku SET judul = '$judul', kategori = '$kategori', stok = $stok WHERE id_buku = $id_buku";
+        $sql = "UPDATE buku SET judul = '$judul', kategori = '$kategori', stok = $stok WHERE id = $id";
         $post = mysqli_query($conn->connect, $sql);
         
         if($post){
@@ -77,19 +77,19 @@ class M_Buku{
         }
     }
 
-    public function DELETE_BUKU($id_buku)
+    public function DELETE_BUKU($id)
     {
         $conn = new M_Connect();
-        $sql = "DELETE FROM buku WHERE id_buku = $id_buku";
+        $sql = "DELETE FROM buku WHERE id = $id";
         
         mysqli_query($conn->connect, $sql);
         header("location:../Views/V_Buku.php");
     }
 
-    public function SHOW_BUKU_BY_ID($id_buku)
+    public function SHOW_BUKU_BY_ID($id)
     {
         $conn = new M_Connect();
-        $sql = "SELECT * FROM buku WHERE id_buku = $id_buku";
+        $sql = "SELECT * FROM buku WHERE id = $id";
         $post = mysqli_query($conn->connect, $sql);
 
         return mysqli_fetch_object($post);

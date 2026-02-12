@@ -7,7 +7,7 @@
     <div class="bg-white rounded-4 shadow-sm p-4">
 	    <h5 class="text-center">Tambah User</h1>
 	    <br>
-        <input type="number" name="id_user" class="form-control" hidden>
+        <input type="number" name="id" class="form-control" hidden>
 	    <input type="text" name="username" placeholder="Username" class="form-control" required> <br>
 		<input type="password" name="password" placeholder="Password" class="form-control" required> <br>
         <input type="text" name="role" placeholder="Role" class="form-control" value="user" hidden>

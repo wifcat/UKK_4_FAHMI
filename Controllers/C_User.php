@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once '../Models/M_User.php';
 
@@ -10,31 +11,63 @@ try{
     // pengkondisian, jika ada aksi atau tidak:
     // NESTED CONDITIONS!
     if(!empty($_GET['aksi'])){
+        // login regis logout:
+        if($_GET['aksi'] == 'register'){
+            $username = $_POST['username'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $role = 'user'; // default user
+
+            $user->ADD_USERS(null, $username, $password, $role);
+            header("Location: ../Views/V_Login.php");
+        }
+        elseif($_GET['aksi'] == 'login'){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $data = $user->LOGIN_USER($username); // fungsi baru di model
+
+            if($data && password_verify($password, $data->password)){
+                $_SESSION['login'] = true;
+                $_SESSION['user']  = $data->username;
+                $_SESSION['role']  = $data->role;
+
+                header("Location: ../Views/index.php");
+            } else {
+                echo "Login gagal!";
+            }
+        }
+        elseif($_GET['aksi'] == 'logout'){
+            session_destroy();
+            header("Location: ../Views/V_Login.php");
+        } // end
+
+
         if(!($_GET['aksi'] == 'hapus')){
             //menangkap isi inputan dari user (front-end)/ buat flags:
             if($_GET['aksi'] == 'edit'){
-                $id_user = $_GET['id_user'];
-                $users = $user->SHOW_USER_BY_ID($id_user);
+                $id = $_GET['id'];
+                $users = $user->SHOW_USER_BY_ID($id);
 
                 include_once '../Views/V_UpdateUser.php';
             }else{
-                $id_user = $_POST['id_user'];
+                $id = $_POST['id'];
                 $username = $_POST['username'];
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $role = $_POST['role'];
 
                 if($_GET['aksi'] == 'tambah'){
                     // panggil objek untuk fungsi tambah dari M_User.php dengan 4 argumen di atas:
-                    $user->ADD_USERS($id_user, $username, $password, $role);
+                    $user->ADD_USERS($id, $username, $password, $role);
                 }elseif($_GET['aksi'] == 'update'){
-                    $user->UPDATE_USERS($id_user, $username, $password, $role);
+                    $user->UPDATE_USERS($id, $username, $password, $role);
                 }
             }
         }else{
-        	$id_user = $_GET['id_user'];
-        	$user->DELETE_USERS($id_user);
+        	$id = $_GET['id'];
+        	$user->DELETE_USERS($id);
         }
     }else{ // sebaliknya:
+        $totalUser = $user->COUNT_USER();
         $users = $user->SHOW_USERS(); // panggil fungsi tampil data dari class M_User()
     }
 }catch(Exception $e){

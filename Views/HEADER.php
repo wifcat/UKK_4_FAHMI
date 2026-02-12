@@ -183,10 +183,13 @@
                 </div>
             </div>
 			<a href="index.php"><i class="fas fa-home"></i> Home</a>
-			<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
-		    <a href="V_Buku.php"><i class="fas fa-book"></i> Kelola Buku</a>
-		    <a href="V_User.php"><i class="fas fa-users"></i> Kelola Anggota</a>
-		    <a href="V_Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+			<?php if($_SESSION['role'] == 'admin'){ ?>
+				<a href="V_Buku.php"><i class="fas fa-book"></i> Kelola Buku</a>
+				<a href="V_User.php"><i class="fas fa-users"></i> Kelola Anggota</a>
+			<?php }else{?>
+				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
+				<a href="V_Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+			<?php }?>
             <hr>
             <a href="logout.php" class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
 		</aside>

@@ -6,7 +6,7 @@
     <div class="bg-white rounded-4 shadow-sm p-4">
 	    <h5 class="text-center">Update User</h5>
 	    <br>
-		<input type="number" name="id_user" class="form-control" value="<?=$users->id_user?>"hidden>
+		<input type="number" name="id" class="form-control" value="<?=$users->id?>"hidden>
 		<input type="text" name="username" placeholder="Nama User" value="<?=$users->username?>" class="form-control"> <br>
 		<select name="role" class="form-control">
 			<option value="">Pilih Role</option>

@@ -1,3 +1,7 @@
+<?php 
+include_once '../Controllers/C_User.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +127,7 @@
         <h1 class="Register-title">Greentea Library</h1>
         <p class="Register-subtitle">Akses perpustakaan digital</p>
 
-        <form action="../Controllers/C_Register.php" method="POST" class="text-start">
+        <form action="../Controllers/C_User.php?aksi=register" method="POST" class="text-start">
             <div class="mb-3">
                 <label class="form-label"><i class="fas fa-user"></i> Buat Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Buat Username" required>

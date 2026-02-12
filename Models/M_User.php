@@ -17,7 +17,7 @@ class M_User{
             return $result;
         }
     }
-    public function ADD_USERS($id_user, $username, $password, $role){
+    public function ADD_USERS($id, $username, $password, $role){
         // buat objek dari class M_Connect:
         $conn = new M_Connect();
         // masukin data ke tabel users:
@@ -39,10 +39,10 @@ class M_User{
             </script>";
         }
     }
-    public function UPDATE_USERS($id_user, $username, $password, $role){
+    public function UPDATE_USERS($id, $username, $password, $role){
         $conn = new M_Connect();
         // masukin data ke tabel users:
-        $sql = "UPDATE users SET username = '$username', password = '$password', role = '$role' WHERE id_user = $id_user";
+        $sql = "UPDATE users SET username = '$username', password = '$password', role = '$role' WHERE id = $id";
         $post = mysqli_query($conn->connect, $sql);
         
         if($post){
@@ -60,20 +60,37 @@ class M_User{
         }
         
     }
-    public function SHOW_USER_BY_ID($id_user)
+    public function SHOW_USER_BY_ID($id)
     {
         $conn = new M_Connect();
-        $sql = "SELECT * FROM users WHERE id_user = $id_user";
+        $sql = "SELECT * FROM users WHERE id = $id";
         $post = mysqli_query($conn->connect, $sql);
 
         return mysqli_fetch_object($post);
     }
-    public function DELETE_USERS($id_user){
+    public function DELETE_USERS($id){
         $conn = new M_Connect();
         // masukin data ke tabel users:
-        $sql = "DELETE FROM users WHERE id_user = $id_user";
+        $sql = "DELETE FROM users WHERE id = $id";
         
         mysqli_query($conn->connect, $sql);
         header("location:../Views/V_User.php");
+    }
+    public function COUNT_USER()
+    {
+        $conn = new M_Connect();
+        $sql = "SELECT COUNT(*) as total FROM users";
+        $post = mysqli_query($conn->connect, $sql);
+        $data = mysqli_fetch_object($post);
+
+        return $data;
+    }
+    public function LOGIN_USER($username)
+    {
+        $conn = new M_Connect();
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $post = mysqli_query($conn->connect, $sql);
+        
+        return mysqli_fetch_object($post);
     }
 }

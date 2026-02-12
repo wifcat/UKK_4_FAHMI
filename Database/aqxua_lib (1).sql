@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `buku` (
-  `id_buku` int NOT NULL,
+  `id` int NOT NULL,
   `judul` varchar(255) NOT NULL,
   `kategori` enum('Matematika','Bahasa Indonesia','Bahasa Inggris','Pendidikan Agama Islam','Bahasa Sunda','Sejarah','Pendidikan Pancasila','Wirausaha','Akutansi') DEFAULT NULL,
   `stok` int DEFAULT '0'
@@ -38,7 +38,7 @@ CREATE TABLE `buku` (
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `judul`, `kategori`, `stok`) VALUES
+INSERT INTO `buku` (`id`, `judul`, `kategori`, `stok`) VALUES
 (5, 'd', 'Matematika', 2),
 (6, 'Tomodachi no Haha', 'Akutansi', 0);
 
@@ -50,8 +50,8 @@ INSERT INTO `buku` (`id_buku`, `judul`, `kategori`, `stok`) VALUES
 
 CREATE TABLE `transaksi` (
   `id` int NOT NULL,
-  `id_user` int NOT NULL,
-  `id_buku` int NOT NULL,
+  `id` int NOT NULL,
+  `id` int NOT NULL,
   `tgl_pinjam` date NOT NULL,
   `tgl_kembali` date DEFAULT NULL,
   `status` enum('dipinjam','kembali') DEFAULT 'dipinjam'
@@ -64,7 +64,7 @@ CREATE TABLE `transaksi` (
 --
 
 CREATE TABLE `users` (
-  `id_user` int NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','user') NOT NULL DEFAULT 'user'
@@ -74,7 +74,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `password`, `role`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (9, 'Haha', '$2y$10$SfE69FnCxC01XrEMCwKbVO12hbPALC./9BNWyloifACTd12HU6UNW', 'user'),
 (10, '32424', '$2y$10$c/e2Gb/rg.NTldCRYkq5fO/jeIyMSlKrwRqRKh5Sl6Slh/wk4O6B.', 'user');
 
@@ -86,21 +86,21 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `role`) VALUES
 -- Indexes for table `buku`
 --
 ALTER TABLE `buku`
-  ADD PRIMARY KEY (`id_buku`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_buku` (`id_buku`);
+  ADD KEY `id` (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
@@ -111,7 +111,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
@@ -123,7 +123,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -133,8 +133,8 @@ ALTER TABLE `users`
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE,
-  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`) ON DELETE CASCADE;
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id`) REFERENCES `buku` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
