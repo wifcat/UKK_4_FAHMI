@@ -59,10 +59,10 @@
                             </td>
                             <td class="text-end pe-3">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="V_UpdateBuku.php?aksi=update&id=<?=$data->id ?>" class="btn btn-sm btn-light border text-primary" title="Update">
+                                    <a href="../Controllers/C_Buku.php?aksi=edit&id_buku=<?=$data->id_buku ?>" class="btn btn-sm btn-light border text-primary" title="Update">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="../Controllers/C_Buku.php?aksi=hapus&id=<?= $data->id ?>" class="btn btn-sm btn-light border text-danger" onclick="return confirm('Hapus buku <?= $data->judul ?>?')" title="Delete">
+                                    <a href="../Controllers/C_Buku.php?aksi=hapus&id_buku=<?=$data->id_buku ?>" class="btn btn-sm btn-light border text-danger" onclick="return confirm('Hapus buku <?= $data->judul ?>?')" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </div>

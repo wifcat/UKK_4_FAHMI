@@ -1,7 +1,7 @@
 <?php
 
 include_once 'M_Connect.php';
-
+$roles = ['Admin', 'User'];
 class M_User{
     public function SHOW_USERS(){
         // buat objek dari class M_Connect:
@@ -17,7 +17,7 @@ class M_User{
             return $result;
         }
     }
-    public function ADD_USERS($id, $username, $password, $role){
+    public function ADD_USERS($id_user, $username, $password, $role){
         // buat objek dari class M_Connect:
         $conn = new M_Connect();
         // masukin data ke tabel users:
@@ -39,10 +39,10 @@ class M_User{
             </script>";
         }
     }
-    public function UPDATE_USERS($id, $username, $password, $role){
+    public function UPDATE_USERS($id_user, $username, $password, $role){
         $conn = new M_Connect();
         // masukin data ke tabel users:
-        $sql = "UPDATE users SET username = '$username', password = '$password', role = '$role' WHERE id = $id";
+        $sql = "UPDATE users SET username = '$username', password = '$password', role = '$role' WHERE id_user = $id_user";
         $post = mysqli_query($conn->connect, $sql);
         
         if($post){
@@ -60,10 +60,18 @@ class M_User{
         }
         
     }
-    public function DELETE_USERS($id){
+    public function SHOW_USER_BY_ID($id_user)
+    {
+        $conn = new M_Connect();
+        $sql = "SELECT * FROM users WHERE id_user = $id_user";
+        $post = mysqli_query($conn->connect, $sql);
+
+        return mysqli_fetch_object($post);
+    }
+    public function DELETE_USERS($id_user){
         $conn = new M_Connect();
         // masukin data ke tabel users:
-        $sql = "DELETE FROM users WHERE id = $id";
+        $sql = "DELETE FROM users WHERE id_user = $id_user";
         
         mysqli_query($conn->connect, $sql);
         header("location:../Views/V_User.php");

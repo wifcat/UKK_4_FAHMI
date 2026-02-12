@@ -1,7 +1,19 @@
 <?php
 include_once 'M_Connect.php';
+$kategoris = [
+    "Matematika",
+    "Bahasa Indonesia",
+    "Bahasa Inggris",
+    "Pendidikan Agama Islam",
+    "Bahasa Sunda",
+    "Sejarah",
+    "Pendidikan Pancasila",
+    "Wirausaha",
+    "Akutansi"
+];
 
 class M_Buku{
+
     public function SHOW_BUKU()
     {
         // buat objek dari class M_Connect:
@@ -19,7 +31,8 @@ class M_Buku{
             return $result;
         }
     }
-    public function ADD_BUKU($id, $judul, $kategori, $stok)
+
+    public function ADD_BUKU($id_buku, $judul, $kategori, $stok)
     {
 	    // buat objek dari class M_Connect:
 	    $conn = new M_Connect();
@@ -42,10 +55,11 @@ class M_Buku{
 	        </script>";
 	    }
 	}
-	public function UPDATE_BUKU($id, $judul, $kategori, $stok)
+
+	public function UPDATE_BUKU($id_buku, $judul, $kategori, $stok)
     {
         $conn = new M_Connect();
-        $sql = "UPDATE buku SET judul = '$judul', kategori = '$kategori', stok = $stok WHERE id = $id";
+        $sql = "UPDATE buku SET judul = '$judul', kategori = '$kategori', stok = $stok WHERE id_buku = $id_buku";
         $post = mysqli_query($conn->connect, $sql);
         
         if($post){
@@ -62,14 +76,25 @@ class M_Buku{
             </script>";
         }
     }
-    public function DELETE_BUKU($id)
+
+    public function DELETE_BUKU($id_buku)
     {
         $conn = new M_Connect();
-        $sql = "DELETE FROM buku WHERE id = $id";
+        $sql = "DELETE FROM buku WHERE id_buku = $id_buku";
         
         mysqli_query($conn->connect, $sql);
         header("location:../Views/V_Buku.php");
     }
+
+    public function SHOW_BUKU_BY_ID($id_buku)
+    {
+        $conn = new M_Connect();
+        $sql = "SELECT * FROM buku WHERE id_buku = $id_buku";
+        $post = mysqli_query($conn->connect, $sql);
+
+        return mysqli_fetch_object($post);
+    }
+
     public function COUNT_BUKU()
     {
         $conn = new M_Connect();

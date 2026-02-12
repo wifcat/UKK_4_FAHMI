@@ -6,7 +6,7 @@
     <div class="bg-white rounded-4 shadow-sm p-4">
 	    <h5 class="text-center">Tambah Buku</h1>
 	    <br>
-		<input type="number" name="id" class="form-control" hidden>
+		<input type="number" name="id_buku" class="form-control" hidden>
 	    <input type="text" name="judul" placeholder="Nama Buku" class="form-control" required> <br>
 		<select id="kategori" name="kategori" class="form-control" required>
 			<option value="">Pilih Kategori</option>

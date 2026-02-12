@@ -12,20 +12,27 @@ try{
     if(!empty($_GET['aksi'])){
         if(!($_GET['aksi'] == 'hapus')){
             //menangkap isi inputan dari user (front-end)/ buat flags:
-            $id = $_POST['id_user'];
-            $username = $_POST['username'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $role = $_POST['role'];
+            if($_GET['aksi'] == 'edit'){
+                $id_user = $_GET['id_user'];
+                $users = $user->SHOW_USER_BY_ID($id_user);
 
-            if($_GET['aksi'] == 'tambah'){
-                // panggil objek untuk fungsi tambah dari M_User.php dengan 4 argumen di atas:
-                $user->ADD_USERS($id, $username, $password, $role);
-            }elseif($_GET['aksi'] == 'update'){
-            	$user->UPDATE_USERS($id, $username, $password, $role);
+                include_once '../Views/V_UpdateUser.php';
+            }else{
+                $id_user = $_POST['id_user'];
+                $username = $_POST['username'];
+                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $role = $_POST['role'];
+
+                if($_GET['aksi'] == 'tambah'){
+                    // panggil objek untuk fungsi tambah dari M_User.php dengan 4 argumen di atas:
+                    $user->ADD_USERS($id_user, $username, $password, $role);
+                }elseif($_GET['aksi'] == 'update'){
+                    $user->UPDATE_USERS($id_user, $username, $password, $role);
+                }
             }
         }else{
-        	$id = $_GET['id'];
-        	$user->DELETE_USERS($id);
+        	$id_user = $_GET['id_user'];
+        	$user->DELETE_USERS($id_user);
         }
     }else{ // sebaliknya:
         $users = $user->SHOW_USERS(); // panggil fungsi tampil data dari class M_User()

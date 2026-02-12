@@ -38,10 +38,10 @@
                         </td>
                         <td class="text-end pe-3">
                             <div class="d-flex justify-content-end gap-2">
-                                <a href="V_UpdateUser.php?aksi=update&id=<?=$data->id ?>" class="btn btn-sm btn-light border text-primary" title="Update">
+                                <a href="../Controllers/C_User.php?aksi=edit&id_user=<?= $data->id_user ?>" class="btn btn-sm btn-light border text-primary" title="Update">
                                  	<i class="fas fa-edit"></i>
                                  </a>
-                                <a href="../Controllers/C_User.php?aksi=hapus&id=<?= $data->id ?>" class="btn btn-sm btn-light border text-danger" onclick="return confirm('Hapus user <?= $data->username ?>?')" title="Delete">
+                                <a href="../Controllers/C_User.php?aksi=hapus&id_user=<?= $data->id_user ?>" class="btn btn-sm btn-light border text-danger" onclick="return confirm('Hapus user <?= $data->username ?>?')" title="Delete">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
