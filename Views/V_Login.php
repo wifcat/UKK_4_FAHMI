@@ -119,36 +119,36 @@ include_once '../Controllers/C_User.php';
 </head>
 <body>
 
-	    <div class="login-box text-center">
-	        <div class="brand-icon">
-	            <i class="fas fa-leaf"></i>
-	        </div>
-	        
-	        <h1 class="login-title">Greentea Library</h1>
-	        <p class="login-subtitle">Akses perpustakaan digital</p>
-	
-	        <form action="../Controllers/C_User.php?aksi=login" method="POST" class="text-start">
-	            <div class="mb-3">
-	                <label class="form-label"><i class="fas fa-user"></i> Username</label>
-	                <input type="text" name="username" class="form-control" placeholder="Masukkan Username" required>
-	            </div>
-	
-	            <div class="mb-3">
-	                <label class="form-label"><i class="fas fa-lock"></i> Password</label>
-	                <input type="password" name="password" class="form-control" placeholder="Masukkan Password" required>
-	            </div>
-	
-	            <button type="submit" class="btn btn-tea btn-success">
-	                Masuk
-	            </button>
-	
-				<hr>
-	            
-	            <div class="mt-3 text-center">
-	                <a href="V_Regis.php" class="text-decoration-none small" style="color: #bbb;">Belum punya akun?</a>
-	            </div>
-	        </form>
-	    </div>
+    <div class="login-box text-center">
+        <div class="brand-icon">
+            <i class="fas fa-leaf"></i>
+        </div>
+        
+        <h1 class="login-title">Greentea Library</h1>
+        <p class="login-subtitle">Akses perpustakaan digital</p>
+
+        <form action="../Controllers/C_User.php?aksi=login" method="POST" class="text-start">
+            <div class="mb-3">
+                <label class="form-label"><i class="fas fa-user"></i> Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Masukkan Username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Masukkan Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-tea btn-success">
+                Masuk
+            </button>
+
+            <hr>
+            
+            <div class="mt-3 text-center">
+                <a href="V_Regis.php" class="text-decoration-none small" style="color: #bbb;">Belum punya akun?</a>
+            </div>
+        </form>
+    </div>
 
     <script src="../assets/src/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

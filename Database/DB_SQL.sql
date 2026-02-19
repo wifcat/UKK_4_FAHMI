@@ -12,8 +12,8 @@ CREATE TABLE buku (
 );
 CREATE TABLE transaksi (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_buku INT NOT NULL,
     id_user INT NOT NULL,
+    id_buku INT NOT NULL,
     tgl_pinjam DATE NOT NULL,
     tgl_kembali DATE DEFAULT NULL,
     status ENUM('dipinjam', 'kembali') DEFAULT 'dipinjam',

@@ -6,7 +6,7 @@ include_once '../Models/M_User.php';
 $user = new M_User(); // buat objek $user
 
 // error handling untuk tambah data user ke tabel users:
-// CRUD (CREATE:done), (READ:done), (UPDATE:done), (DELETE:done)
+// CRUD (CREATE:done), (READ:done), (UPDATE:null), (DELETE:null)
 try{
     // pengkondisian, jika ada aksi atau tidak:
     // NESTED CONDITIONS!
