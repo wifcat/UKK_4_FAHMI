@@ -1,5 +1,6 @@
 <?php
 	include_once '../Controllers/C_User.php';
+	include_once '../Config/auth.php';
 ?>
 
 <!DOCTYPE html>
@@ -186,14 +187,14 @@
                 </div>
             </div>
 			<a href="index.php"><i class="fas fa-home"></i> Home</a>
-			<?php if($_SESSION['role'] == 'admin'){ ?>
-				<a href="V_Buku.php"><i class="fas fa-book"></i> Kelola Buku</a>
-				<a href="V_User.php"><i class="fas fa-users"></i> Kelola Anggota</a>
-				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
-				<a href="V_Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+			<?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){ ?>
+			<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
+			<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+			<hr>
+			<a href="admin-panel.php" class="text-secondary"><i class="fas fa-gear"></i> Admin Menu </a>
 			<?php }else{?>
 				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
-				<a href="V_Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+				<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
 			<?php }?>
             <hr>
             <a href="../Controllers/C_User.php?aksi=logout" class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>

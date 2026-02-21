@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 04, 2026 at 08:51 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Host: 127.0.0.1
+-- Generation Time: Feb 21, 2026 at 12:16 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,20 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `buku` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `kategori` enum('Matematika','Bahasa Indonesia','Bahasa Inggris','Pendidikan Agama Islam','Bahasa Sunda','Sejarah','Pendidikan Pancasila','Wirausaha','Akutansi') DEFAULT NULL,
-  `stok` int DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `stok` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `buku`
 --
 
 INSERT INTO `buku` (`id`, `judul`, `kategori`, `stok`) VALUES
-(1, 'Bahasa Indonesia 2025/2026 Kelas XII', 'Bahasa Indonesia', 50),
-(2, 'Ayo Menghitung!', 'Matematika', 7),
-(3, 'Pokok Pikiran - Sage of Six paths', 'Sejarah', 2);
+(4, 'Kulkul', 'Pendidikan Pancasila', 10);
 
 -- --------------------------------------------------------
 
@@ -50,13 +48,25 @@ INSERT INTO `buku` (`id`, `judul`, `kategori`, `stok`) VALUES
 --
 
 CREATE TABLE `transaksi` (
-  `id` int NOT NULL,
-  `id` int NOT NULL,
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_buku` int(11) NOT NULL,
   `tgl_pinjam` date NOT NULL,
   `tgl_kembali` date DEFAULT NULL,
   `status` enum('dipinjam','kembali') DEFAULT 'dipinjam'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `id_user`, `id_buku`, `tgl_pinjam`, `tgl_kembali`, `status`) VALUES
+(38, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
+(39, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
+(40, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
+(41, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
+(42, 11, 4, '2026-02-21', NULL, 'dipinjam'),
+(43, 12, 4, '2026-02-21', NULL, 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -65,20 +75,19 @@ CREATE TABLE `transaksi` (
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','user') NOT NULL DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(3, 'atmin', '123', 'user'),
-(4, '12', '$2y$10$vjlHi7.jd64PT.dw2MEckeFeetJ6ImfiqjmTd3HYoeghPucybdI5.', 'user'),
-(5, 'Fahmi', '$2y$10$W2C9GueGbkFgdM/7MvjvVOFKAXB96iSvpc7TIUUyZ.tQ6VqXklpXK', 'user');
+(11, 'fah', '$2y$10$9oJ47vtj5du4Jf/HS0djfu4Gi27IY4sslGhLKDCH8rk1bmQ.8ZfwO', 'admin'),
+(12, 'fahm', '$2y$10$8PH9JuxkSxtezdbfp/0OA.kAtk7MvrZhFpDpdQAuj3DYeoTJOTd3q', 'user');
 
 --
 -- Indexes for dumped tables
@@ -95,8 +104,8 @@ ALTER TABLE `buku`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `id` (`id`);
+  ADD KEY `transaksi_ibfk_1` (`id_user`),
+  ADD KEY `transaksi_ibfk_2` (`id_buku`);
 
 --
 -- Indexes for table `users`
@@ -113,19 +122,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -135,8 +144,8 @@ ALTER TABLE `users`
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id`) REFERENCES `buku` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

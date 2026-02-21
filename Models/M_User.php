@@ -1,7 +1,8 @@
 <?php
 
 include_once 'M_Connect.php';
-$roles = ['Admin', 'User'];
+$roles = ['admin', 'user'];
+
 class M_User{
     public function SHOW_USERS(){
         // buat objek dari class M_Connect:
@@ -21,6 +22,7 @@ class M_User{
         // buat objek dari class M_Connect:
         $conn = new M_Connect();
         // masukin data ke tabel users:
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users VALUES(null, '$username', '$password', '$role')";
         $post = mysqli_query($conn->connect, $sql);
         
@@ -42,7 +44,12 @@ class M_User{
     public function UPDATE_USERS($id, $username, $password, $role){
         $conn = new M_Connect();
         // masukin data ke tabel users:
-        $sql = "UPDATE users SET username = '$username', password = '$password', role = '$role' WHERE id = $id";
+        if(!empty($password)){
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET username='$username', password='$password', role='$role' WHERE id=$id";
+        } else {
+            $sql = "UPDATE users SET username='$username', role='$role' WHERE id=$id";
+        }
         $post = mysqli_query($conn->connect, $sql);
         
         if($post){

@@ -1,7 +1,22 @@
 <?php
     include_once '../Controllers/C_User.php';
     include_once 'HEADER.php';
+    include '../Config/adminOnly.php';
 ?>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="p-4 rounded-4 shadow-sm text-white d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #1f2937, #111827);">
+                <div>
+                    <h3 class="fw-bold mb-1">KELOLA ANGGOTA</h3>
+                    <p class="mb-0 opacity-75">Tambah, edit, dan hapus data anggota perpustakaan.</p>
+                </div>
+                <div class="d-none d-md-block">
+                    <i class="fas fa-users fa-3x opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-12 col-md-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 card-hover transition-all">
             <div class="d-flex align-items-center gap-3">
@@ -15,6 +30,7 @@
             </div>
         </div>
     </div> <br>
+
     <div class="bg-white rounded-4 shadow-sm p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h5 class="fw-semibold mb-0">Users</h5>

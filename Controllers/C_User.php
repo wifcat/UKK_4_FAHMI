@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include_once '../Models/M_User.php';
 
@@ -14,7 +13,7 @@ try{
         // login regis logout:
         if($_GET['aksi'] == 'register'){
             $username = $_POST['username'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = $_POST['password'];
             $role = 'user'; // default user
 
             $user->ADD_USERS(null, $username, $password, $role);
@@ -23,25 +22,30 @@ try{
         elseif($_GET['aksi'] == 'login'){
             $username = $_POST['username'];
             $password = $_POST['password'];
+            
+            $data = $user->LOGIN_USER($username);
 
-            $data = $user->LOGIN_USER($username); // fungsi baru di model
+            if(!$data){
+                die("USER TIDAK ADA DI DATABASE");
+            }
 
-            if($data && password_verify($password, $data->password)){
+            if(password_verify($password, $data->password)){
+                session_start();
                 $_SESSION['login'] = true;
+                $_SESSION['id_user'] = $data->id;
                 $_SESSION['user']  = $data->username;
                 $_SESSION['role']  = $data->role;
 
                 header("Location: ../Views/index.php");
+                exit;
             } else {
-                echo "Login gagal!";
+                echo "Password salah!";
             }
         }
         elseif($_GET['aksi'] == 'logout'){
             session_destroy();
             header("Location: ../Views/V_Login.php");
         } // end
-
-
         if(!($_GET['aksi'] == 'hapus')){
             //menangkap isi inputan dari user (front-end)/ buat flags:
             if($_GET['aksi'] == 'edit'){
@@ -52,7 +56,7 @@ try{
             }else{
                 $id = $_POST['id'];
                 $username = $_POST['username'];
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $password = $_POST['password'];
                 $role = $_POST['role'];
 
                 if($_GET['aksi'] == 'tambah'){

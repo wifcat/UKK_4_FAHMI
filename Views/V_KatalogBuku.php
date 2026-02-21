@@ -2,9 +2,18 @@
     include_once '../Controllers/C_Buku.php';
     include_once 'HEADER.php';
 ?>
-    <div class="mb-4">
-        <h3 class="fw-bold mb-1">Katalog Buku</h3>
-        <p class="text-muted">Pilih buku yang ingin kamu pinjam hari ini!</p>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="p-5 rounded-4 shadow-sm text-white d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, var(--green-tea), var(--green-tea-dark));">
+                <div>
+                    <h2 class="fw-bold mb-2">Katalog Buku</h2>
+                    <p class="mb-0 opacity-75">Pilih buku yang ingin kamu pinjam hari ini!</p>
+                </div>
+                <div class="d-none d-md-block">
+                    <i class="fas fa-book fa-4x opacity-25"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row g-4">
@@ -35,8 +44,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <a href="V_FormPinjam.php?id=<?= $data->id ?>" 
-                           class="btn <?= $data->stok > 0 ? 'btn-success' : 'btn-secondary disabled' ?> w-100 rounded-3 shadow-sm py-2">
+                        <a href="../Controllers/C_Transaksi.php?aksi=pinjam&id_buku=<?= $data->id ?>" class="btn <?= $data->stok > 0 ? 'btn-success' : 'btn-secondary disabled' ?> w-100 rounded-3 shadow-sm py-2">
                             <i class="fas fa-hand-holding-heart me-2"></i>Pinjam
                         </a>
                     </div>
