@@ -1,6 +1,7 @@
 <?php
     include_once '../Controllers/C_User.php';
     include_once 'HEADER.php';
+	include '../Config/adminOnly.php';
 ?>
 <form action="../Controllers/C_User.php?aksi=update" method="post">
     <div class="bg-white rounded-4 shadow-sm p-4">

@@ -3,6 +3,7 @@
     include '../Config/adminOnly.php';
     include_once '../Controllers/C_Buku.php'; 
     include_once '../Controllers/C_User.php';
+    include_once '../Controllers/C_Transaksi.php';
 ?>
 
     <div class="row mb-4">
@@ -57,7 +58,7 @@
                     </div>
                     <div>
                         <small class="text-muted fw-bold">TRANSAKSI AKTIF</small>
-                        <h3 class="fw-bold">78</h3>
+                        <h3 class="fw-bold"><?= $totalTransaksi->total ?></h3>
                     </div>
                 </div>
             </div>

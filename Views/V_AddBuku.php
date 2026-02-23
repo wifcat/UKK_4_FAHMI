@@ -1,6 +1,7 @@
 <?php
     include_once '../Controllers/C_Buku.php';
     include_once 'HEADER.php';
+	include '../Config/adminOnly.php';
 ?>
 <form action="../Controllers/C_Buku.php?aksi=tambah" method="post">
     <div class="bg-white rounded-4 shadow-sm p-4">

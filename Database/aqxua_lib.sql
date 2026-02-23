@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2026 at 12:16 PM
+-- Generation Time: Feb 23, 2026 at 12:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,7 +39,11 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id`, `judul`, `kategori`, `stok`) VALUES
-(4, 'Kulkul', 'Pendidikan Pancasila', 10);
+(7, 'Learn English in 3 Minutes', 'Bahasa Inggris', 50),
+(8, 'Ayo Galaxy!', 'Matematika', 55),
+(9, 'Konspirasi - Vol. 1', 'Pendidikan Pancasila', 14),
+(10, 'Filsafat Islam', 'Pendidikan Agama Islam', 20),
+(11, 'Pangea', 'Sejarah', 11);
 
 -- --------------------------------------------------------
 
@@ -53,7 +57,7 @@ CREATE TABLE `transaksi` (
   `id_buku` int(11) NOT NULL,
   `tgl_pinjam` date NOT NULL,
   `tgl_kembali` date DEFAULT NULL,
-  `status` enum('dipinjam','kembali') DEFAULT 'dipinjam'
+  `status` enum('dipinjam','kembali','tunggu') DEFAULT 'dipinjam'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -61,12 +65,7 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id`, `id_user`, `id_buku`, `tgl_pinjam`, `tgl_kembali`, `status`) VALUES
-(38, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
-(39, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
-(40, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
-(41, 11, 4, '2026-02-21', '2026-02-21', 'kembali'),
-(42, 11, 4, '2026-02-21', NULL, 'dipinjam'),
-(43, 12, 4, '2026-02-21', NULL, 'dipinjam');
+(58, 12, 9, '2026-02-23', NULL, 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -87,7 +86,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (11, 'fah', '$2y$10$9oJ47vtj5du4Jf/HS0djfu4Gi27IY4sslGhLKDCH8rk1bmQ.8ZfwO', 'admin'),
-(12, 'fahm', '$2y$10$8PH9JuxkSxtezdbfp/0OA.kAtk7MvrZhFpDpdQAuj3DYeoTJOTd3q', 'user');
+(12, 'fahm', '$2y$10$8PH9JuxkSxtezdbfp/0OA.kAtk7MvrZhFpDpdQAuj3DYeoTJOTd3q', 'user'),
+(16, 'fawf', '$2y$10$mQV9SVh25ZyWhpR9XVlOy.hy/mTbm.4kLzssAsD.v5PBOpRBv1j1u', 'user');
 
 --
 -- Indexes for dumped tables
@@ -122,19 +122,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

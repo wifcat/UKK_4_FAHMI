@@ -1,6 +1,7 @@
 <?php
-    include_once '../Controllers/C_Transaksi.php'; // Ini akan otomatis menjalankan bagian 'else' di controller
+    include_once '../Controllers/C_Transaksi.php'; 
     include_once 'HEADER.php';
+    // include_once '../Controllers/C_User.php'
 ?>
 
 <div class="row mb-4">
@@ -27,47 +28,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($trans)) : ?>
-                        <?php foreach ($trans as $tr) : ?>
-                            <tr>
-                                <td class="px-4">
-                                    <div class="fw-bold"><?= $tr->judul ?></div>
-                                    <small class="text-muted"><?= $tr->kategori ?></small>
-                                </td>
-                                <td><?= $tr->username ?></td>
-                                <td><?= date('d M Y', strtotime($tr->tgl_pinjam)) ?></td>
-                                <td>
-                                    <?= ($tr->tgl_kembali) ? date('d M Y', strtotime($tr->tgl_kembali)) : '<span class="text-muted">-</span>' ?>
-                                </td>
-                                <td>
-                                    <?php if ($tr->status == 'dipinjam') : ?>
-                                        <span class="badge rounded-pill bg-warning text-dark">Sedang Dipinjam</span>
-                                    <?php else : ?>
-                                        <span class="badge rounded-pill bg-success">Sudah Kembali</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="px-4 text-center">
-                                    <?php if ($tr->status == 'dipinjam') : ?>
-                                        <a href="../Controllers/C_Transaksi.php?aksi=kembali&id=<?= $tr->id ?>" 
-                                           class="btn btn-outline-primary btn-sm rounded-pill px-3"
-                                           onclick="return confirm('Apakah kamu ingin mengembalikan buku ini?')">
-                                            <i class="fas fa-undo me-1"></i> Kembalikan
-                                        </a>
-                                    <?php else : ?>
-                                        <button class="btn btn-light btn-sm rounded-pill px-3" disabled>
-                                            <i class="fas fa-check me-1"></i> Selesai
-                                        </button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else : ?>
+                <?php if (!empty($trans)) : ?>
+                    <?php foreach ($trans as $tr) : ?>
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                <i class="fas fa-history fa-3x mb-3 opacity-25"></i>
-                                <p>Belum ada transaksi peminjaman.</p>
+                            <td class="px-4">
+                                <div class="fw-bold"><?= $tr->judul ?></div>
+                                <small class="text-muted"><?= $tr->kategori ?></small>
+                            </td>
+                            
+                            <td><?= $tr->username ?></td>
+                            <td><?= date('d M Y', strtotime($tr->tgl_pinjam)) ?></td>
+                            
+                            <td>
+                                <?= ($tr->tgl_kembali) ? date('d M Y', strtotime($tr->tgl_kembali)) : '<span class="text-muted">-</span>' ?>
+                            </td>
+
+                            <td>
+                                <?php if($tr->status == 'tunggu'): ?>
+                                    <span class="badge bg-warning text-dark">Menunggu Verifikasi</span>
+                                <?php elseif($tr->status == 'dipinjam'): ?>
+                                    <span class="badge bg-success text-white">Sedang Dipinjam</span>
+                                <?php elseif($tr->status == 'kembali'): ?>
+                                    <span class="badge bg-secondary">Sudah Dikembalikan</span>
+                                <?php endif; ?>
+                            </td>
+
+                            <td class="px-4 text-center">
+                                <?php if ($tr->status == 'tunggu') : ?>
+                                    <small class="text-muted">Mohon tunggu konfirmasi Admin</small>
+                                <?php elseif ($tr->status == 'dipinjam') : ?>
+                                    <div class="text-success small fw-bold">
+                                        <i class="fas fa-store me-1"></i> Silahkan ambil buku fisik di perpus
+                                    </div>
+                                <?php else : ?>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-check-circle text-success me-1"></i> Transaksi Selesai
+                                    </span>
+                                <?php endif; ?>
                             </td>
                         </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Tidak ada data transaksi</td>
+                    </tr>
                     <?php endif; ?>
                 </tbody>
             </table>

@@ -1,6 +1,7 @@
 <?php
     include_once '../Controllers/C_Buku.php';
     include_once 'HEADER.php';
+	include_once '../Config/adminOnly.php';
 ?>
 
 <form action="../Controllers/C_Buku.php?aksi=update" method="post">

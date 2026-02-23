@@ -26,26 +26,40 @@ try{
             $data = $user->LOGIN_USER($username);
 
             if(!$data){
-                die("USER TIDAK ADA DI DATABASE");
+                die("
+                    <script>
+                        alert('Username tidak ditemukan!'); 
+                        window.location='../Views/V_Login.php';
+                    </script>
+                ");
             }
 
             if(password_verify($password, $data->password)){
                 session_start();
                 $_SESSION['login'] = true;
                 $_SESSION['id_user'] = $data->id;
-                $_SESSION['user']  = $data->username;
-                $_SESSION['role']  = $data->role;
+                $_SESSION['user'] = $data->username;
+                $_SESSION['role'] = $data->role;
 
                 header("Location: ../Views/index.php");
                 exit;
             } else {
-                echo "Password salah!";
+                echo "
+                <script>
+                    alert('Password salah!'); 
+                    window.location='../Views/V_Login.php';
+                </script>";
             }
         }
         elseif($_GET['aksi'] == 'logout'){
-            session_destroy();
+            session_start(); // restart
+            session_unset(); // Kosongkan semua variabel session
+            session_destroy(); // Hancurkan session-nya
+            header("Cache-Control: no-cache, must-revalidate");
+            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
             header("Location: ../Views/V_Login.php");
-        } // end
+            exit;
+        }// end
         if(!($_GET['aksi'] == 'hapus')){
             //menangkap isi inputan dari user (front-end)/ buat flags:
             if($_GET['aksi'] == 'edit'){

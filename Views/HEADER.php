@@ -1,5 +1,5 @@
 <?php
-	include_once '../Controllers/C_User.php';
+	// include_once '../Controllers/C_User.php';
 	include_once '../Config/auth.php';
 ?>
 
@@ -14,7 +14,6 @@
         <link href="../assets/src/icons/css/all.min.css" rel="stylesheet">
         <style>
 		    :root{
-		        /* Palette Greentea dari referensi index.php */
 		        --green-tea: #5B9A68;       /* Matcha Dark */
 		        --green-tea-dark: #388E3C;  /* Deep Leaf */
 		        --green-tea-soft: #F1F8E9;  /* Background Light */
@@ -33,7 +32,6 @@
 		        display: none;
 		    }
 
-            /* --- TOPBAR UPGRADED --- */
 		    .topbar{
 		        height: 65px;
 		        background: var(--white);
@@ -67,7 +65,6 @@
                 gap: 10px;
 		    }
 
-            /* --- SIDEBAR UPGRADED --- */
 		    .sidebar{
 		        position: fixed;
 		        top: 0; /* Full height */
@@ -187,10 +184,11 @@
                 </div>
             </div>
 			<a href="index.php"><i class="fas fa-home"></i> Home</a>
+			<a href="profile.php"> <i class="fas fa-user"></i> Profile</a>
 			<?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){ ?>
-			<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
-			<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
-			<hr>
+				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
+				<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
+				<hr>
 			<a href="admin-panel.php" class="text-secondary"><i class="fas fa-gear"></i> Admin Menu </a>
 			<?php }else{?>
 				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
@@ -199,7 +197,5 @@
             <hr>
             <a href="../Controllers/C_User.php?aksi=logout" class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
 		</aside>
-		
-		<label for="toggleSidebar" class="overlay"></label>
-
-        <div class="content-area">
+			<label for="toggleSidebar" class="overlay"></label>
+        	<div class="content-area">

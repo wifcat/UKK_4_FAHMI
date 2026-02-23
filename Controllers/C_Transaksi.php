@@ -7,29 +7,31 @@ $tran = new M_Transaksi();
 try {
     if (!empty($_GET['aksi'])) {
         
-        // --- AKSI PINJAM ---
+        // AKSI PINJAM 
         if ($_GET['aksi'] == 'pinjam') {
             $id_user = $_SESSION['id_user']; 
             $id_buku = $_GET['id_buku'];
-
-            // Panggil fungsi tambah pinjaman (yang sudah kita buat sebelumnya)
+            // Panggil fungsi tambah pinjaman
             $simpan = $tran->ADD_PINJAM($id_user, $id_buku);
 
             if ($simpan) {
-                echo "<script>
+                echo "
+                <script>
                     alert('Buku Berhasil Dipinjam!'); 
                     window.location='../Views/Transaksi.php';
                 </script>";
             } else {
-                echo "<script>alert('Gagal Pinjam! Stok Habis atau Sistem Error'); window.location='../Views/V_KatalogBuku.php';</script>";
+                echo "
+                <script>
+                    alert('Gagal Pinjam! Stok Habis atau Sistem Error'); 
+                    window.location='../Views/V_KatalogBuku.php';
+                </script>";
             }
         }
 
-        // --- AKSI KEMBALI ---
+        // AKSI KEMBALIKAN BUKU 
         elseif ($_GET['aksi'] == 'kembali') {
             $id_transaksi = $_GET['id'];
-            
-            // Nanti kita buat fungsi KEMBALIKAN_BUKU di Model
             $update = $tran->KEMBALIKAN_BUKU($id_transaksi);
 
             if ($update) {
@@ -40,10 +42,38 @@ try {
                 </script>";
             }
         }
+        // AKSI ACC PINJAMAN
+        elseif ($_GET['aksi'] == 'acc') {
+            $id_transaksi = $_GET['id'];
+            $update = $tran->ACC_PINJAMAN($id_transaksi);
 
+            if ($update) {
+                echo "
+                <script>
+                    alert('Pinjaman di-ACC! Buku siap diambil user.'); 
+                    window.location='../Views/Transaksi.php';
+                </script>";
+            } else {
+                echo "
+                <script>
+                    alert('Gagal ACC! Stok buku mungkin sudah habis.'); 
+                    window.location='../Views/Transaksi.php';
+                </script>";
+            }
+        }
     } else {
-        $trans = $tran->SHOW_TRANSAKSI();
-        include_once '../Views/Transaksi.php';
+        $role = $_SESSION['role'];
+        $id_log = $_SESSION['id_user'];
+
+        if ($role == 'admin') {
+            // Admin lihat semua
+            $totalTransaksi = $tran->COUNT_TRANSAKSI();
+            $trans = $tran->SHOW_TRANSAKSI(); 
+        } else {
+            // User biasa hanya lihat miliknya sendiri
+            $trans = $tran->SHOW_TRANSAKSI($id_log); 
+        }
+        // include_once '../Views/Transaksi.php';
     }
 
 } catch (Exception $e) {

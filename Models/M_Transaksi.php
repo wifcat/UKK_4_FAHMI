@@ -3,26 +3,42 @@
 include_once 'M_Connect.php';
 
 class M_Transaksi{
-    public function SHOW_TRANSAKSI(){
+    public function SHOW_TRANSAKSI($id = null)
+    {
         $conn = new M_Connect();
         $sql = "SELECT 
-                transaksi.*, 
-                users.username, 
-                buku.judul, 
-                buku.kategori 
-            FROM transaksi
-            JOIN users ON transaksi.id_user = users.id
-            JOIN buku ON transaksi.id_buku = buku.id
-            ORDER BY transaksi.id DESC";
+                    transaksi.*, 
+                    users.username, 
+                    buku.judul, 
+                    buku.kategori 
+                FROM transaksi
+                JOIN users ON transaksi.id_user = users.id
+                JOIN buku ON transaksi.id_buku = buku.id";
+        // biar menampilkan transaksi user tertentu aja kalau $id dikasih nilai, kalo gak ya tampil semua
+        if($id != null){
+            $sql .= " WHERE transaksi.id_user = '$id'"; 
+        }
+        // Urutkan dari transaksi berdasarkan user
+        $sql .= " ORDER BY transaksi.id DESC";
         $post = mysqli_query($conn->connect, $sql);
-        
-        $result = []; // Inisialisasi array kosong biar tidak error kalau data kosong
+        $result = []; 
+
         if($post->num_rows > 0){
             while ($data = mysqli_fetch_object($post)){
                 $result[] = $data;
             }
         }
         return $result;
+    }
+    public function COUNT_TRANSAKSI()
+    {
+        $conn = new M_Connect();
+        // Kita cuma mau hitung transaksi yang statusnya 'tunggu' atau 'dipinjam' berdasarkan id_user yang sedang pinjam
+        $sql = "SELECT COUNT(*) as total FROM transaksi WHERE status IN ('tunggu', 'dipinjam')";
+        $post = mysqli_query($conn->connect, $sql);
+        $data = mysqli_fetch_object($post);
+
+        return $data;
     }
     public function SHOW_TRANSAKSI_BY_ID($id)
     {
@@ -33,27 +49,45 @@ class M_Transaksi{
         return mysqli_fetch_object($post);
     }
 
-    public function ADD_PINJAM($id_user, $id_buku) {
+    public function ADD_PINJAM($id_user, $id_buku) 
+    {
         $conn = new M_Connect();
         $tgl_pinjam = date('Y-m-d');
 
-        // Menggunakan transaksi SQL agar stok & data transaksi sinkron
+        // Kita tidak langsung kurangi stok di sini, 
+        // karena stok baru berkurang saat buku benar-benar diambil/di-acc Admin.
+        $sql_transaksi = "INSERT INTO transaksi (id_user, id_buku, tgl_pinjam, status) VALUES ('$id_user', '$id_buku', '$tgl_pinjam', 'tunggu')"; // Status awal: tunggu
+        
+        return mysqli_query($conn->connect, $sql_transaksi);
+    }
+
+    public function ACC_PINJAMAN($id_transaksi)
+    {
+        $conn = new M_Connect();
         mysqli_begin_transaction($conn->connect);
 
         try {
-            // 1. Insert ke tabel transaksi
-            $sql_transaksi = "INSERT INTO transaksi (id_user, id_buku, tgl_pinjam, status) VALUES ('$id_user', '$id_buku', '$tgl_pinjam', 'dipinjam')";
-            mysqli_query($conn->connect, $sql_transaksi);
+            // 1. Ambil id_buku
+            $res = mysqli_query($conn->connect, "SELECT id_buku FROM transaksi WHERE id = '$id_transaksi'");
+            $data = mysqli_fetch_object($res);
+            $id_buku = $data->id_buku;
 
-            // 2. Kurangi stok di tabel buku
-            $sql_update_stok = "UPDATE buku SET stok = stok - 1 WHERE id = '$id_buku'";
-            mysqli_query($conn->connect, $sql_update_stok);
+            // 2. Cek stok buku fisik masih ada atau gak
+            $cek_stok = mysqli_query($conn->connect, "SELECT stok FROM buku WHERE id = '$id_buku'");
+            $b = mysqli_fetch_object($cek_stok);
 
-            // Jika semua ok, commit
-            mysqli_commit($conn->connect);
-            return true;
+            if($b->stok > 0) {
+                // 3. Update status jadi 'diambil' (atau 'dipinjam')
+                mysqli_query($conn->connect, "UPDATE transaksi SET status = 'dipinjam' WHERE id = '$id_transaksi'");
+                // 4. Baru kurangi stok di sini
+                mysqli_query($conn->connect, "UPDATE buku SET stok = stok - 1 WHERE id = '$id_buku'");
+                
+                mysqli_commit($conn->connect);
+                return true;
+            } else {
+                return false; // Stok tiba-tiba habis
+            }
         } catch (Exception $e) {
-            // Jika ada gagal, batalkan semua
             mysqli_rollback($conn->connect);
             return false;
         }

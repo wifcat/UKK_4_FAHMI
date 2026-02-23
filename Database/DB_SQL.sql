@@ -17,6 +17,6 @@ CREATE TABLE transaksi (
     tgl_pinjam DATE NOT NULL,
     tgl_kembali DATE DEFAULT NULL,
     status ENUM('dipinjam', 'kembali') DEFAULT 'dipinjam',
-    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_buku) REFERENCES buku(id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_buku) REFERENCES buku(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
