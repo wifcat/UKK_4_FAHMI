@@ -1,3 +1,4 @@
-<script>
-    window.location='Views/index.php';
-</script>
+<?php
+header("Location: Views/index.php");
+exit();
+?>
