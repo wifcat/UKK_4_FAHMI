@@ -51,15 +51,18 @@ try {
                 echo "
                 <script>
                     alert('Pinjaman di-ACC! Buku siap diambil user.'); 
-                    window.location='../Views/Transaksi.php';
+                    window.location='../Views/V_Transaksi.php';
                 </script>";
             } else {
                 echo "
                 <script>
                     alert('Gagal ACC! Stok buku mungkin sudah habis.'); 
-                    window.location='../Views/Transaksi.php';
+                    window.location='../Views/V_Transaksi.php';
                 </script>";
             }
+        }elseif ($_GET['aksi'] == 'hapus') {
+            $id_transaksi = $_GET['id'];
+            $tran->DELETE_TRANSAKSI($id_transaksi);
         }
     } else {
         $role = $_SESSION['role'];

@@ -16,16 +16,26 @@ try{
             $password = $_POST['password'];
             $role = 'user'; // default user
 
-            $user->ADD_USERS(null, $username, $password, $role);
-            header("Location: ../Views/V_Login.php");
+            $checkUser = $user->LOGIN_USER($username);
+
+            if($checkUser){
+                die("
+                    <script>
+                        alert('Username sudah terdaftar!'); 
+                        window.location='../Views/V_Regis.php';
+                    </script>
+                ");
+            }else{
+                $user->ADD_USERS(null, $username, $password, $role);
+                header("Location: ../Views/V_Login.php");
+            }
         }
         elseif($_GET['aksi'] == 'login'){
             $username = $_POST['username'];
             $password = $_POST['password'];
-            
-            $data = $user->LOGIN_USER($username);
+            $checkUser2 = $user->LOGIN_USER($username);
 
-            if(!$data){
+            if(!$checkUser2){
                 die("
                     <script>
                         alert('Username tidak ditemukan!'); 
@@ -34,12 +44,12 @@ try{
                 ");
             }
 
-            if(password_verify($password, $data->password)){
+            if(password_verify($password, $checkUser2->password)){
                 session_start();
                 $_SESSION['login'] = true;
-                $_SESSION['id_user'] = $data->id;
-                $_SESSION['user'] = $data->username;
-                $_SESSION['role'] = $data->role;
+                $_SESSION['id_user'] = $checkUser2->id;
+                $_SESSION['user'] = $checkUser2->username;
+                $_SESSION['role'] = $checkUser2->role;
 
                 header("Location: ../Views/index.php");
                 exit;

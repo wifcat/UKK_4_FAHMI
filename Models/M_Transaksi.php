@@ -61,6 +61,15 @@ class M_Transaksi{
         return mysqli_query($conn->connect, $sql_transaksi);
     }
 
+    public function DELETE_TRANSAKSI($id){
+        $conn = new M_Connect();
+        // masukin data ke tabel transaksi:
+        $sql = "DELETE FROM transaksi WHERE id = $id";
+        
+        mysqli_query($conn->connect, $sql);
+        header("location:../Views/V_Transaksi.php");
+    }
+
     public function ACC_PINJAMAN($id_transaksi)
     {
         $conn = new M_Connect();

@@ -82,12 +82,18 @@
                                         <a href="../Controllers/C_Transaksi.php?aksi=acc&id=<?= $tr->id ?>" class="btn btn-primary btn-sm rounded-pill px-3">
                                             <i class="fas fa-check me-1"></i> Konfirmasi
                                         </a>
+                                        <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Apakah Anda yakin ingin menolak transaksi ini?')">
+                                            <i class="fas fa-x me-1"></i> Tolak
+                                        </a>
                                     <?php elseif ($tr->status == 'dipinjam') : ?>
                                         <a href="../Controllers/C_Transaksi.php?aksi=kembali&id=<?= $tr->id ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="return confirm('Buku sudah diterima kembali?')">
                                             <i class="fas fa-undo me-1"></i> Kembalikan
                                         </a>
                                     <?php else : ?>
                                         <button class="btn btn-light btn-sm rounded-pill px-3" disabled>Selesai</button>
+                                        <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">
+                                            <i class="fas fa-trash me-1"></i> Hapus
+                                        </a>
                                     <?php endif; ?>
 
                                 <?php else : ?>
