@@ -1,5 +1,7 @@
 <?php 
 include_once '../Controllers/C_User.php';
+include_once '../Config/signedIn.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

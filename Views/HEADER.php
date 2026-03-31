@@ -183,8 +183,8 @@
                     <i class="fas fa-leaf"></i> Greentea Library
                 </div>
             </div>
-			<a href="index.php"><i class="fas fa-home"></i> Home</a>
-			<a href="profile.php"> <i class="fas fa-user"></i> Profile</a>
+			<a href="index.php"><i class="fas fa-home"></i> Beranda</a>
+			<a href="profile.php"> <i class="fas fa-user"></i> Profil</a>
 			<?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){ ?>
 				<a href="V_KatalogBuku.php"> <i class="fas fa-shop"></i> Katalog Buku</a>
 				<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
@@ -195,7 +195,7 @@
 				<a href="Transaksi.php"><i class="fas fa-bookmark"></i> Transaksi & Riwayat</a>
 			<?php }?>
             <hr>
-            <a href="../Controllers/C_User.php?aksi=logout" class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+            <a href="../Controllers/C_User.php?aksi=logout" onclick="return confirm('Apakah anda yakin ingin keluar?');" class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
 		</aside>
 			<label for="toggleSidebar" class="overlay"></label>
         	<div class="content-area">

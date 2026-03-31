@@ -38,7 +38,7 @@ try {
                 echo "
                 <script>
                     alert('Buku Telah Dikembalikan!'); 
-                    window.location='../Views/Transaksi.php';
+                    window.location='../Views/V_Transaksi.php';
                 </script>";
             }
         }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2026 at 12:18 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 31 Mar 2026 pada 08.12
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `buku`
+-- Struktur dari tabel `buku`
 --
 
 CREATE TABLE `buku` (
@@ -35,20 +35,20 @@ CREATE TABLE `buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `buku`
+-- Dumping data untuk tabel `buku`
 --
 
 INSERT INTO `buku` (`id`, `judul`, `kategori`, `stok`) VALUES
 (7, 'Learn English in 3 Minutes', 'Bahasa Inggris', 50),
-(8, 'Ayo Galaxy!', 'Matematika', 55),
-(9, 'Konspirasi - Vol. 1', 'Pendidikan Pancasila', 14),
+(8, 'Ayo Galaxy!', 'Matematika', 54),
+(9, 'Konspirasi - Vol. 1', 'Pendidikan Pancasila', 15),
 (10, 'Filsafat Islam', 'Pendidikan Agama Islam', 20),
 (11, 'Pangea', 'Sejarah', 11);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi`
+-- Struktur dari tabel `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -61,16 +61,18 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `transaksi`
+-- Dumping data untuk tabel `transaksi`
 --
 
 INSERT INTO `transaksi` (`id`, `id_user`, `id_buku`, `tgl_pinjam`, `tgl_kembali`, `status`) VALUES
-(58, 12, 9, '2026-02-23', NULL, 'dipinjam');
+(65, 11, 8, '2026-03-31', NULL, 'tunggu'),
+(66, 11, 8, '2026-03-31', NULL, 'dipinjam'),
+(67, 11, 9, '2026-03-31', '2026-03-31', 'kembali');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -81,26 +83,28 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(11, 'fah', '$2y$10$9oJ47vtj5du4Jf/HS0djfu4Gi27IY4sslGhLKDCH8rk1bmQ.8ZfwO', 'admin'),
-(12, 'fahm', '$2y$10$8PH9JuxkSxtezdbfp/0OA.kAtk7MvrZhFpDpdQAuj3DYeoTJOTd3q', 'user'),
-(16, 'fawf', '$2y$10$mQV9SVh25ZyWhpR9XVlOy.hy/mTbm.4kLzssAsD.v5PBOpRBv1j1u', 'user');
+(11, 'Administrator', '$2y$10$B1LS15n4SqSz3n9rkhTS.eNWk6l7o929n1Qp8yAN5HoAslM9UD9o2', 'admin'),
+(12, 'Fahmi', '$2y$10$8PH9JuxkSxtezdbfp/0OA.kAtk7MvrZhFpDpdQAuj3DYeoTJOTd3q', 'user'),
+(16, 'Coolbob', '$2y$10$mQV9SVh25ZyWhpR9XVlOy.hy/mTbm.4kLzssAsD.v5PBOpRBv1j1u', 'user'),
+(19, 'Modium', '$2y$10$cgZDK8K5Rnrzozxw3va/A.uXxNr33zdXBISznhEHQb0j8WHO1NRme', 'user'),
+(20, 'Roulet', '$2y$10$qR/XRqgn5Idqq.mOTHQPU.Y.SbaE7CE7SRCDH3wGZc9AO3IvEB6PK', 'user');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `buku`
+-- Indeks untuk tabel `buku`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaksi`
+-- Indeks untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`),
@@ -108,40 +112,40 @@ ALTER TABLE `transaksi`
   ADD KEY `transaksi_ibfk_2` (`id_buku`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `buku`
+-- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `transaksi`
+-- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `transaksi`
+-- Ketidakleluasaan untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

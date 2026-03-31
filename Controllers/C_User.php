@@ -4,8 +4,6 @@ include_once '../Models/M_User.php';
 
 $user = new M_User(); // buat objek $user
 
-// error handling untuk tambah data user ke tabel users:
-// CRUD (CREATE:done), (READ:done), (UPDATE:null), (DELETE:null)
 try{
     // pengkondisian, jika ada aksi atau tidak:
     // NESTED CONDITIONS!
@@ -50,7 +48,10 @@ try{
                 $_SESSION['id_user'] = $checkUser2->id;
                 $_SESSION['user'] = $checkUser2->username;
                 $_SESSION['role'] = $checkUser2->role;
-
+                echo "
+                <script>
+                    alert('Berhasil login!');
+                </script>";
                 header("Location: ../Views/index.php");
                 exit;
             } else {
@@ -65,8 +66,6 @@ try{
             session_start(); // restart
             session_unset(); // Kosongkan semua variabel session
             session_destroy(); // Hancurkan session-nya
-            header("Cache-Control: no-cache, must-revalidate");
-            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
             header("Location: ../Views/V_Login.php");
             exit;
         }// end
@@ -88,6 +87,10 @@ try{
                     $user->ADD_USERS($id, $username, $password, $role);
                 }elseif($_GET['aksi'] == 'update'){
                     $user->UPDATE_USERS($id, $username, $password, $role);
+                    session_start();
+                    $_SESSION['user'] = $username;
+
+                    header("Location: ../Views/profile.php?status=sukses");
                 }
             }
         }else{
