@@ -1,6 +1,10 @@
 <?php
 	// include_once '../Controllers/C_User.php';
-	include_once '../Config/auth.php';
+	include_once '../Config/authck.php';
+
+	use App\Authck\Auth;
+
+	Auth::guard();
 ?>
 
 <!DOCTYPE html>

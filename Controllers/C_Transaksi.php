@@ -1,6 +1,10 @@
 <?php
-include_once '../Config/auth.php';
+include_once '../Config/authck.php';
 include_once '../Models/M_Transaksi.php';
+
+use App\Authck\Auth;
+
+Auth::guard();
 
 $tran = new M_Transaksi();
 
@@ -67,16 +71,16 @@ try {
     } else {
         $role = $_SESSION['role'];
         $id_log = $_SESSION['id_user'];
+        $now = basename($_SERVER['PHP_SELF']);
 
-        if ($role == 'admin') {
-            // Admin lihat semua
+        if (($now == 'V_Transaksi.php' || $now == 'admin-panel.php') && $role == 'admin') {
             $totalTransaksi = $tran->COUNT_TRANSAKSI();
-            $trans = $tran->SHOW_TRANSAKSI(); 
+            $trans = $tran->SHOW_TRANSAKSI();
+            $viewMode = 'admin';
         } else {
-            // User biasa hanya lihat miliknya sendiri
             $trans = $tran->SHOW_TRANSAKSI($id_log); 
+            $viewMode = 'user';
         }
-        // include_once '../Views/Transaksi.php';
     }
 
 } catch (Exception $e) {

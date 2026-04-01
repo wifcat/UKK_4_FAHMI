@@ -1,7 +1,10 @@
 <?php
     include_once '../Controllers/C_Buku.php';
     include_once 'HEADER.php';
-	include_once '../Config/adminOnly.php';
+	include_once '../Config/authck.php';
+    use App\Authck\Auth;
+
+    Auth::adminOnly();
 ?>
 
 <form action="../Controllers/C_Buku.php?aksi=update" method="post">
@@ -23,4 +26,11 @@
 		<button type="submit" class="btn btn-success" name="update" value="kirim">Simpan</button>
     </div>
 </form>
+
+<div class="text-center mt-4">
+    <a href="../Views/V_Buku.php" class="btn btn-link text-success text-decoration-none fw-medium">
+        <i class="fas fa-arrow-left me-2"></i> Kembali
+    </a>
+</div>
+
 <?php include_once 'FOOTER.php'; ?>

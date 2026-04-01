@@ -1,9 +1,13 @@
 <?php
     include_once 'HEADER.php';
-    include '../Config/adminOnly.php';
     include_once '../Controllers/C_Buku.php'; 
     include_once '../Controllers/C_User.php';
     include_once '../Controllers/C_Transaksi.php';
+    
+    include_once '../Config/authck.php';
+    use App\Authck\Auth;
+
+    Auth::adminOnly();
 ?>
 
     <div class="row mb-4">

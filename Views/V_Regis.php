@@ -1,6 +1,11 @@
 <?php 
 include_once '../Controllers/C_User.php';
-include_once '../Config/signedIn.php';
+include_once '../Config/authck.php';
+
+use App\Authck\Auth;
+
+Auth::isSigned();
+
 ?>
 
 <!DOCTYPE html>

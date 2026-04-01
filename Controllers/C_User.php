@@ -65,16 +65,22 @@ try{
         elseif($_GET['aksi'] == 'logout'){
             session_start(); // restart
             session_unset(); // Kosongkan semua variabel session
-            session_destroy(); // Hancurkan session-nya
+            session_destroy(); // Hancurkan session
             header("Location: ../Views/V_Login.php");
             exit;
         }// end
         if(!($_GET['aksi'] == 'hapus')){
             //menangkap isi inputan dari user (front-end)/ buat flags:
-            if($_GET['aksi'] == 'edit'){
+            if ($_GET['aksi'] == 'edit') {
                 $id = $_GET['id'];
-                $users = $user->SHOW_USER_BY_ID($id);
+                
+                session_start();
+                // Jika user coba mengubah profil admin
+                if ($_SESSION['role'] !== 'admin' && $_SESSION['id_user'] != $id) {
+                    die("<p>Akses Ilegal! Anda hanya boleh mengedit profil sendiri.</p>");
+                }
 
+                $users = $user->SHOW_USER_BY_ID($id);
                 include_once '../Views/V_UpdateUser.php';
             }else{
                 $id = $_POST['id'];
@@ -87,10 +93,19 @@ try{
                     $user->ADD_USERS($id, $username, $password, $role);
                 }elseif($_GET['aksi'] == 'update'){
                     $user->UPDATE_USERS($id, $username, $password, $role);
-                    session_start();
-                    $_SESSION['user'] = $username;
 
-                    header("Location: ../Views/profile.php?status=sukses");
+                    session_start();
+                    if ($_SESSION['id_user'] == $id) {
+                        // Profile Page
+                        $_SESSION['user'] = $username;
+                        $_SESSION['role'] = $role; 
+                        
+                        header("Location: ../Views/profile.php?status=sukses");
+                    } else {
+                        // Admin
+                        header("Location: ../Views/V_User.php?status=update_berhasil");
+                    }
+                    exit;
                 }
             }
         }else{
