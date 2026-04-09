@@ -5,7 +5,7 @@ class M_Connect
 	private $host = "localhost",
 	$username = "root",
 	$pass = "",
-	$db = "aqxua_lib";
+	$db = "ukk_4_fahmi";
   
 	public $connect;
 

@@ -78,6 +78,7 @@ try {
             $trans = $tran->SHOW_TRANSAKSI();
             $viewMode = 'admin';
         } else {
+            $totalTransaksi = $tran->COUNT_TRANSAKSI($id_log);
             $trans = $tran->SHOW_TRANSAKSI($id_log); 
             $viewMode = 'user';
         }

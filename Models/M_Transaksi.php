@@ -30,11 +30,16 @@ class M_Transaksi{
         }
         return $result;
     }
-    public function COUNT_TRANSAKSI()
+    public function COUNT_TRANSAKSI($id_user = null)
     {
         $conn = new M_Connect();
-        // Kita cuma mau hitung transaksi yang statusnya 'tunggu' atau 'dipinjam' berdasarkan id_user yang sedang pinjam
         $sql = "SELECT COUNT(*) as total FROM transaksi WHERE status IN ('tunggu', 'dipinjam')";
+
+        // Jika id_user diisi, tambahkan filter WHERE
+        if ($id_user !== null) {
+            $sql .= " AND id_user = '$id_user'";
+        }
+
         $post = mysqli_query($conn->connect, $sql);
         $data = mysqli_fetch_object($post);
 
