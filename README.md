@@ -30,4 +30,16 @@ Admin dapat mengelola User ketika mereka melakukan transaksi (Peminjaman) lalu A
 2. Tabel Buku: Tambah, hapus, ubah, tampil buku (termasuk katalog buku)
 3. Tabel Transaksi: Tambah (Pinjam Buku), ubah (ubah Status dipinjam, ditunggu, kembali), hapus (tolak/hapus riwayat transaksi dari riwayat transaksi), tampilkan (menampilkan riwayat transaksi dengan semua status yang tersedia termasuk semua users bagi admin)
 
+### Lists akun:
+**Admin**
+```
+Username: Administrator
+Password: aqxua123
+```
+**User**
+```
+Username: aqxua
+Password: aqua
+```
+
 [Projek dihost di sini](https://fahmi-perpustakaan-rpl2.xo.je)
