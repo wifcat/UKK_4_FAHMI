@@ -8,10 +8,10 @@ User/Pengguna dapat melakukan registrasi dan login akun
 User dapat meminjam buku yang tersedia di tab *Katalog*, Pengembalian harus disertakan bukti Peminjaman di tab *Transaksi & Riwayat* kepada admin perpustakaan secara tatap muka, Lalu Admin akan menyatakan Transaksi pengembalian.
 
 **Fitur Lain (User & Admin):**
-3. Logout (Dapat melakukan logout aplikasi)
-4. Profil Saya (melihat profil)
-5. Ubah password dan username di profil
-6. Dapat melihat total Transaksi dan riwayat transaksi peminjaman buku saat ini dan melihat Username + ID User di profile.php
+1. Logout (Dapat melakukan logout aplikasi)
+2. Profil Saya (melihat profil)
+3. Ubah password dan username di profil
+4. Dapat melihat total Transaksi dan riwayat transaksi peminjaman buku saat ini dan melihat Username + ID User di profile.php
 
 
 **Admin:**
