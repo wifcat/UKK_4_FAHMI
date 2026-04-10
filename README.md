@@ -8,17 +8,17 @@ User/Pengguna dapat melakukan registrasi dan login akun
 User dapat meminjam buku yang tersedia di tab *Katalog*, Pengembalian harus disertakan bukti Peminjaman di tab *Transaksi & Riwayat* kepada admin perpustakaan secara tatap muka, Lalu Admin akan menyatakan Transaksi pengembalian.
 
 **Fitur Lain (User & Admin):**
-1. Logout (Dapat melakukan logout aplikasi)
-2. Profil Saya (melihat profil)
-3. Ubah password dan username di profil
-4. Dapat melihat total Transaksi dan riwayat transaksi peminjaman buku saat ini dan melihat Username + ID User di profile.php
+3. Logout (Dapat melakukan logout aplikasi)
+4. Profil Saya (melihat profil)
+5. Ubah password dan username di profil
+6. Dapat melihat total Transaksi dan riwayat transaksi peminjaman buku saat ini dan melihat Username + ID User di profile.php
 
 
 **Admin:**
-1. Login:
-Admin dapat melakukan login sebagai role admin
+1. Login & Registrasi:
+Admin juga dapat melakukan login atau Registrasi (karna layaknya sebagai semua pengguna)
 2. CRUD Kelola Anggota/User:
-Admin dapat mengelola User di tab *Admin Menu > Kelola Anggota*. Admin dapat Mengubah, Menghapus, Menambah, bahkan menampilkan semua daftar user dengan total.
+Admin dapat mengelola User/Pengguna di tab *Admin Menu > Kelola Anggota*. Admin dapat Mengubah, Menghapus, Menambah, bahkan menampilkan semua daftar akun pengguna/user dengan termasuk berapa banyak total akun yang terdaftar di aplikasi.
 3. CRUD Kelola Buku:
 Admin dapat mengelola koleksi buku, baik Menambah, Mengubah, Menghapus dan menampilkan semua total buku yang ada
 4. CRUD Keloka Transaksi:
