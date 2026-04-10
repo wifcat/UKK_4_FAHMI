@@ -5,7 +5,7 @@
 1. Login & Registrasi:
 User/Pengguna dapat melakukan registrasi dan login akun
 2. Melakukan Transaksi:
-User dapat meminjam buku yang tersedia, Pengembalian harus disertakan bukti Peminjaman di tab *Transaksi & Riwayat* kepada admin perpustakaan secara tatap muka, Lalu Admin akan menyatakan Transaksi pengembalian.
+User dapat meminjam buku yang tersedia di tab *Katalog*, Pengembalian harus disertakan bukti Peminjaman di tab *Transaksi & Riwayat* kepada admin perpustakaan secara tatap muka, Lalu Admin akan menyatakan Transaksi pengembalian.
 
 **Fitur Lain (User & Admin):**
 1. Logout (Dapat melakukan logout aplikasi)
