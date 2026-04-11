@@ -67,6 +67,9 @@ try {
         }elseif ($_GET['aksi'] == 'hapus') {
             $id_transaksi = $_GET['id'];
             $tran->DELETE_TRANSAKSI($id_transaksi);
+        }elseif ($_GET['aksi'] == 'tolak') {
+            $id_transaksi = $_GET['id'];
+            $tran->TOLAK_BUKU($id_transaksi);
         }
     } else {
         $role = $_SESSION['role'];
