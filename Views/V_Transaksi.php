@@ -47,8 +47,8 @@
                     <tr>
                         <th class="px-4 py-3">Buku</th>
                         <th class="py-3">Peminjam</th>
-                        <th class="py-3">Tgl Pinjam</th>
-                        <th class="py-3">Tgl Kembali</th>
+                        <th class="py-3">Tanggal Pinjam</th>
+                        <th class="py-3">Tanggal Kembali</th>
                         <th class="py-3">Status</th>
                         <th class="px-4 py-3 text-center">Aksi</th>
                     </tr>
@@ -76,42 +76,49 @@
                                     <span class="badge bg-success text-white">Sedang Dipinjam</span>
                                 <?php elseif($tr->status == 'kembali'): ?>
                                     <span class="badge bg-secondary">Sudah Dikembalikan</span>
+                                <?php elseif($tr->status == 'tolak'): ?>
+                                    <span class="badge bg-danger">Transaksi Ditolak</span>
                                 <?php endif; ?>
                             </td>
 
                             <td class="px-4 text-center">
-                                <?php if ($_SESSION['role'] == 'admin') : ?>
-                                    <?php if ($tr->status == 'tunggu') : ?>
-                                        <a href="../Controllers/C_Transaksi.php?aksi=acc&id=<?= $tr->id ?>" class="btn btn-primary btn-sm rounded-pill px-3">
-                                            <i class="fas fa-check me-1"></i> Konfirmasi
-                                        </a>
-                                        <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Apakah Anda yakin ingin menolak transaksi ini?')">
-                                            <i class="fas fa-x me-1"></i> Tolak
-                                        </a>
-                                    <?php elseif ($tr->status == 'dipinjam') : ?>
-                                        <a href="../Controllers/C_Transaksi.php?aksi=kembali&id=<?= $tr->id ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="return confirm('Buku sudah diterima kembali?')">
-                                            <i class="fas fa-undo me-1"></i> Kembalikan
-                                        </a>
-                                    <?php else : ?>
-                                        <button class="btn btn-light btn-sm rounded-pill px-3" disabled>Selesai</button>
-                                        <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">
-                                            <i class="fas fa-trash me-1"></i> Hapus
-                                        </a>
-                                    <?php endif; ?>
+                                <div class="d-flex justify-content-center gap-1"> <?php if ($_SESSION['role'] == 'admin') : ?>
+                                        
+                                        <?php if ($tr->status == 'tunggu') : ?>
+                                            <div class="btn-group shadow-sm" role="group">
+                                                <a href="../Controllers/C_Transaksi.php?aksi=acc&id=<?= $tr->id ?>" class="btn btn-primary btn-sm px-3">
+                                                    <i class="fas fa-check"></i> <span class="d-none d-md-inline">Konfirmasi</span>
+                                                </a>
+                                                <a href="../Controllers/C_Transaksi.php?aksi=tolak&id=<?= $tr->id ?>" class="btn btn-danger btn-sm px-3" onclick="return confirm('Apakah Anda yakin?')">
+                                                    <i class="fas fa-times"></i> <span class="d-none d-md-inline">Tolak</span>
+                                                </a>
+                                            </div>
 
-                                <?php else : ?>
-                                    <?php if ($tr->status == 'tunggu') : ?>
-                                        <small class="text-muted">Mohon tunggu admin</small>
-                                    <?php elseif ($tr->status == 'dipinjam') : ?>
-                                        <span class="text-success small fw-bold">Silahkan ambil buku fisik</span>
-                                    <?php else : ?>
-                                        <i class="fas fa-check-circle text-success"></i>
+                                        <?php elseif ($tr->status == 'dipinjam') : ?>
+                                            <a href="../Controllers/C_Transaksi.php?aksi=kembali&id=<?= $tr->id ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="return confirm('Buku sudah diterima kembali?')">
+                                                <i class="fas fa-undo me-1"></i> Kembalikan
+                                            </a>
+
+                                        <?php elseif ($tr->status == 'tolak') : ?>
+                                            <div class="btn-group shadow-sm" role="group">
+                                                <button class="btn btn-light btn-sm disabled border">
+                                                    <?= ($tr->status == 'tolak') ? 'Ditolak' : 'Selesai' ?>
+                                                </button>
+                                                <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus transaksi ini?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        <?php else : ?>
+                                            <a href="../Controllers/C_Transaksi.php?aksi=hapus&id=<?= $tr->id ?>" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Hapus transaksi ini?')">
+                                                <i class="fas fa-trash"></i> hapus
+                                            </a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
-                                <?php endif; ?>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                <?php else : ?>
+                    <?php else : ?>
                     <tr>
                         <td colspan="6" class="text-center text-muted">Tidak ada data transaksi</td>
                     </tr>

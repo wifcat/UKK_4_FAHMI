@@ -21,10 +21,10 @@
                     <tr>
                         <th class="px-4 py-3">Buku</th>
                         <th class="py-3">Peminjam</th>
-                        <th class="py-3">Tgl Pinjam</th>
-                        <th class="py-3">Tgl Kembali</th>
+                        <th class="py-3">Tanggal Pinjam</th>
+                        <th class="py-3">Tanggal Kembali</th>
                         <th class="py-3">Status</th>
-                        <th class="px-4 py-3 text-center">Aksi</th>
+                        <th class="px-4 py-3 text-center">Info</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +50,8 @@
                                     <span class="badge bg-success text-white">Sedang Dipinjam</span>
                                 <?php elseif($tr->status == 'kembali'): ?>
                                     <span class="badge bg-secondary">Sudah Dikembalikan</span>
+                                <?php elseif($tr->status == 'tolak'): ?>
+                                    <span class="badge bg-danger">Transaksi Ditolak</span>
                                 <?php endif; ?>
                             </td>
 
@@ -58,8 +60,12 @@
                                     <small class="text-muted">Mohon tunggu konfirmasi Admin</small>
                                 <?php elseif ($tr->status == 'dipinjam') : ?>
                                     <div class="text-success small fw-bold">
-                                        <i class="fas fa-store me-1"></i> Silahkan ambil buku fisik di perpus
+                                        <i class="fas fa-store me-1"></i> Silahkan ambil buku fisik di Perpustakaan
                                     </div>
+                                <?php elseif($tr->status == 'tolak') : ?>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-times-circle text-danger me-1"></i> Transaksi Ditolak
+                                    </span>
                                 <?php else : ?>
                                     <span class="text-muted small">
                                         <i class="fas fa-check-circle text-success me-1"></i> Transaksi Selesai

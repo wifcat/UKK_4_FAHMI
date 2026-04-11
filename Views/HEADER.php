@@ -1,10 +1,19 @@
 <?php
 	// include_once '../Controllers/C_User.php';
 	include_once '../Config/authck.php';
+	include_once '../Models/M_Transaksi.php';
 
 	use App\Authck\Auth;
 
 	Auth::guard();
+
+	$trNotif = new M_Transaksi();
+
+	// Ambil transaksi user yang statusnya diacc atau ditolak
+	$dataNotif = [];
+	if (isset($_SESSION['id_user'])) {
+		$dataNotif = $trNotif->SHOW_TRANSAKSI($_SESSION['id_user']); 
+	}
 ?>
 
 <!DOCTYPE html>
@@ -169,16 +178,89 @@
 			  font-style: italic;
 			  font-weight: 500;
 			  src: url('../assets/src/fonts/poppins-v24-latin-500italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-			}			
+			}		
+			.dropdown-item:active, 
+			.dropdown-item:focus,
+			.dropdown-item.active {
+				background-color: #f8f9fa !important; 
+				color: inherit !important;
+			}
+			.dropdown-item:hover {
+				background-color: var(--green-tea-soft) !important;
+			}
+			.dropdown-menu div::-webkit-scrollbar {
+				width: 5px;
+			}
+			.dropdown-menu div::-webkit-scrollbar-thumb {
+				background: #ccc;
+				border-radius: 10px;
+			}	
 		</style>
     </head>
     <body>
 		<input type="checkbox" id="toggleSidebar">
 		<header class="topbar">
-		    <label for="toggleSidebar" class="hamburger"><i class="fas fa-bars"></i></label>
-		    <div class="brand">
-                <i class="fas fa-leaf"></i> GreenteaLib
-            </div>
+			<label for="toggleSidebar" class="hamburger"><i class="fas fa-bars"></i></label>
+			<div class="brand">
+				<i class="fas fa-leaf"></i> GreenteaLib
+			</div>
+
+			<div class="ms-auto dropdown">
+				<a href="#" class="text-decoration-none text-success position-relative" id="notifDropdown" data-bs-toggle="dropdown">
+					<i class="fas fa-bell fs-5"></i>
+					<?php 
+					$adaPesanBaru = false;
+					foreach($dataNotif as $notif) {
+						if($notif->status == 'dipinjam' || $notif->status == 'tolak') $adaPesanBaru = true;
+					}
+					if($adaPesanBaru): ?>
+						<span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+					<?php endif; ?>
+				</a>
+				
+				<ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-3" style="width: 300px; border-radius: 12px; overflow: hidden;">
+					<li class="px-3 py-2 fw-bold border-bottom bg-light">Pemberitahuan</li>
+					
+					<div style="max-height: 300px; overflow-y: auto;">
+						<?php 
+						$count = 0;
+						if (!empty($dataNotif)): 
+							foreach($dataNotif as $notif): 
+								if(in_array($notif->status, ['dipinjam', 'tolak', 'tunggu'])): 
+									$count++;
+						?>
+							<li>
+								<a class="dropdown-item py-3 border-bottom text-wrap" href="Transaksi.php">
+									<div class="small fw-bold text-dark"><?= $notif->judul ?></div>
+									
+									<?php if($notif->status == 'dipinjam'): ?>
+										<div class="small text-success">
+											<i class="fas fa-check-circle me-1"></i> Pinjaman di-ACC! Silahkan ambil buku fisik di Perpustakaan.
+										</div>
+									<?php elseif($notif->status == 'tolak'): ?>
+										<div class="small text-danger">
+											<i class="fas fa-times-circle me-1"></i> Maaf, peminjaman kamu ditolak.
+										</div>
+									<?php elseif($notif->status == 'tunggu'): ?>
+										<div class="small text-muted">
+											<i class="fas fa-clock me-1"></i> Menunggu konfirmasi admin..
+										</div>
+									<?php endif; ?>
+								</a>
+							</li>
+						<?php 
+								endif;
+							endforeach; 
+						endif;
+
+						if ($count == 0): ?>
+							<li><a class="dropdown-item py-4 text-muted small text-center">Tidak ada pemberitahuan baru</a></li>
+						<?php endif; ?>
+					</div>
+					
+					<li><a class="dropdown-item text-center small text-success fw-bold py-2" href="Transaksi.php">Lihat Semua Riwayat</a></li>
+				</ul>
+			</div>
 		</header>
 
 		<aside class="sidebar">
