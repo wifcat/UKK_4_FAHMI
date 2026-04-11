@@ -106,6 +106,7 @@ class M_Transaksi{
             return false;
         }
     }
+
     public function KEMBALIKAN_BUKU($id_transaksi) {
         $conn = new M_Connect();
         $tgl_kembali = date('Y-m-d');
@@ -129,5 +130,12 @@ class M_Transaksi{
             mysqli_rollback($conn->connect);
             return false;
         }
+    }
+
+    public function TOLAK_BUKU($id){
+        $conn = new M_Connect();
+        
+        mysqli_query($conn->connect, "UPDATE transaksi SET status = 'tolak' WHERE id = '$id'");
+        header("location:../Views/V_Transaksi.php");
     }
 }
