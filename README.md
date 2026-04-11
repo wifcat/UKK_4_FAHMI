@@ -1,6 +1,6 @@
-## UKK Paket empat Perpustakaan digital
+# UKK Paket empat Perpustakaan digital
 
-### == Fitur Utama dalam Projek ==
+## Fitur Utama dalam Projek
 **Semua pengguna (User & Admin):**
 1. Login & Registrasi:
 User/Pengguna dapat melakukan registrasi dan login akun
@@ -12,6 +12,7 @@ User dapat meminjam buku yang tersedia di tab *Katalog*, Pengembalian harus dise
 2. Profil Saya (melihat profil)
 3. Ubah password dan username di profil
 4. Dapat melihat total Transaksi dan riwayat transaksi peminjaman buku saat ini dan melihat Username + ID User di profile.php
+5. Dapat melihat inbox/pesan masuk apakah transaksi ditolak atau di-acc (tampil data)
 
 
 **Admin:**
